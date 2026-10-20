@@ -1,0 +1,9 @@
+{
+  "domain": "com.vorssaint.utils",
+  "trigger": "button:9",
+  "defaultProfile": "",
+  "apps": {
+    "com.microsoft.teams2": "Teams",
+    "com.microsoft.teams": "Teams"
+  }
+}
