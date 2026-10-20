@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 330" font-family="-apple-system,Helvetica,Arial,sans-serif" font-size="14">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#555"/></marker>
+  </defs>
+  <rect width="760" height="330" rx="12" fill="#ffffff" stroke="#d0d7de"/>
+  <g fill="#f4f6f8" stroke="#8c959f">
+    <rect x="20" y="110" width="140" height="70" rx="8"/>
+    <rect x="200" y="110" width="140" height="70" rx="8"/>
+    <rect x="380" y="110" width="140" height="70" rx="8"/>
+  </g>
+  <g fill="#e8f0fe" stroke="#4285f4">
+    <rect x="570" y="40" width="170" height="70" rx="8"/>
+    <rect x="570" y="180" width="170" height="70" rx="8"/>
+  </g>
+  <rect x="570" y="268" width="170" height="44" rx="8" fill="#eef6ee" stroke="#4c9a4c"/>
+  <g fill="#1f2328" text-anchor="middle">
+    <text x="90" y="140" font-weight="600">Trigger</text>
+    <text x="90" y="160" font-size="12">Raycast hotkey</text>
+    <text x="90" y="175" font-size="12">Shortcuts / Automator</text>
+    <text x="270" y="140" font-weight="600">teams-*.sh</text>
+    <text x="270" y="160" font-size="12">like, love, hand,</text>
+    <text x="270" y="175" font-size="12">mute, camera ...</text>
+    <text x="450" y="140" font-weight="600">teams-ui (Swift)</text>
+    <text x="450" y="160" font-size="12">built on first run</text>
+    <text x="450" y="175" font-size="12">by run-teams-ui.sh</text>
+    <text x="655" y="68" font-weight="600">Teams shortcut</text>
+    <text x="655" y="88" font-size="12">Cmd+Shift+M / O / K / E</text>
+    <text x="655" y="103" font-size="12">mute, camera, hand, share</text>
+    <text x="655" y="208" font-weight="600">Accessibility press</text>
+    <text x="655" y="228" font-size="12">button found by label</text>
+    <text x="655" y="243" font-size="12">reactions, chat, people</text>
+    <text x="655" y="295" font-weight="600">Teams meeting</text>
+  </g>
+  <g stroke="#555" stroke-width="1.5" fill="none" marker-end="url(#a)">
+    <path d="M160 145H198"/>
+    <path d="M340 145H378"/>
+    <path d="M520 130L568 85"/>
+    <path d="M520 160L568 205"/>
+    <path d="M655 250V266"/>
+  </g>
+  <path d="M740 75H752V290H740" stroke="#4c9a4c" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+  <text x="20" y="40" font-size="16" font-weight="600" fill="#1f2328">How it works</text>
+  <text x="20" y="62" font-size="12" fill="#57606a">No Teams API. Window size and focus don't matter.</text>
+</svg>

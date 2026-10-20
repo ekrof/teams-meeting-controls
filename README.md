@@ -1,5 +1,7 @@
 # teams-meeting-controls
 
+<p align="center"><img src="docs/wheel.png" alt="Teams reactions wheel" width="320"></p>
+
 Hotkey scripts for Microsoft Teams meetings on macOS: reactions (👍 ❤️ 👏 😂 😮), raise/lower hand, mute, camera, share, chat, people.
 Works at any window size; Teams doesn't need focus. No Teams API setup, no Raycast required.
 
@@ -11,6 +13,8 @@ Works at any window size; Teams doesn't need focus. No Teams API setup, no Rayca
 | `teams-camera.sh` | Camera on/off | Cmd+Shift+O |
 | `teams-share.sh` | Share | Cmd+Shift+E |
 | `teams-chat.sh`, `teams-people.sh` | Open panel | Accessibility button press |
+
+![How it works](docs/how-it-works.svg)
 
 ## Requirements
 - macOS 14+, new Microsoft Teams
