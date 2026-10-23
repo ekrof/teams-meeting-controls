@@ -83,8 +83,8 @@ func findButton(in root: AXUIElement, names: [String]) -> AXUIElement? {
     return nil
 }
 
-func press(_ e: AXUIElement, click: Bool = false) {
-    if !click, AXUIElementPerformAction(e, kAXPressAction as CFString) == .success { return }
+func press(_ e: AXUIElement) {
+    if AXUIElementPerformAction(e, kAXPressAction as CFString) == .success { return }
     // Fallback: real click at the element's centre.
     var pos = CGPoint.zero, size = CGSize.zero
     if let p = attr(e, kAXPositionAttribute), let s = attr(e, kAXSizeAttribute) {
@@ -92,20 +92,14 @@ func press(_ e: AXUIElement, click: Bool = false) {
         AXValueGetValue(s as! AXValue, .cgSize, &size)
     }
     let c = CGPoint(x: pos.x + size.width / 2, y: pos.y + size.height / 2)
-    if click { teamsApp?.activate(options: [.activateIgnoringOtherApps]); usleep(300_000) }
     let saved = CGEvent(source: nil)?.location ?? c
-    // Teams' web menu needs a hover before the click registers.
-    let steps: [(CGEventType, useconds_t)] = [(.mouseMoved, 150_000), (.leftMouseDown, 80_000), (.leftMouseUp, 100_000)]
-    for (t, delay) in steps {
-        let ev = CGEvent(mouseEventSource: CGEventSource(stateID: .hidSystemState), mouseType: t, mouseCursorPosition: c, mouseButton: .left)
-        ev?.setIntegerValueField(.mouseEventClickState, value: 1)
-        ev?.post(tap: .cghidEventTap)
-        usleep(delay)
+    for t in [CGEventType.mouseMoved, .leftMouseDown, .leftMouseUp] {
+        CGEvent(mouseEventSource: nil, mouseType: t, mouseCursorPosition: c, mouseButton: .left)?.post(tap: .cghidEventTap)
+        usleep(40_000)
     }
     CGWarpMouseCursorPosition(saved)
 }
 
-var teamsApp: NSRunningApplication?
 let action = CommandLine.arguments.count > 1 ? CommandLine.arguments[1] : ""
 let bundleIds = ["com.microsoft.teams2", "com.microsoft.teams"]   // new Teams, classic Teams
 guard action == "dump" || toolbar[action] != nil || reactions[action] != nil else { out("Unknown action: \(action)", 2) }
@@ -113,7 +107,6 @@ guard AXIsProcessTrusted() else { out("Grant Accessibility to the app running th
 guard let teams = bundleIds.compactMap({ NSRunningApplication.runningApplications(withBundleIdentifier: $0).first }).first else {
     out("Teams not running", 1)
 }
-teamsApp = teams
 let app = AXUIElementCreateApplication(teams.processIdentifier)
 // Teams' own meeting shortcuts (Cmd+Shift+key) are sent straight to the Teams process: no tree walk, no focus change.
 // Set TEAMS_UI_MODE=ax to press the toolbar buttons instead.
@@ -170,6 +163,10 @@ if emoji == nil {
     }
 }
 guard let target = emoji else { out("Reaction menu did not open", 1) }
-// AXPress on the emoji reports success but Teams ignores it, so click for real.
-press(target, click: true)
+// Teams ignores AXPress on the emoji unless the app is active and the button focused.
+teams.activate(options: [.activateIgnoringOtherApps])
+usleep(300_000)
+AXUIElementSetAttributeValue(target, kAXFocusedAttribute as CFString, kCFBooleanTrue)
+usleep(100_000)
+press(target)
 out("Sent \(action)")
